@@ -60,7 +60,7 @@ class LinkPreview {
     await _cacheOEmbedSchemeMap();
   }
 
-  static Future<dynamic> getPreviewInfo(String url) async {
+  static Future<dynamic> getPageInfo(String url) async {
     Map<String, String> schemeMap = await _cacheOEmbedSchemeMap();
 
     String oembedUrl;
