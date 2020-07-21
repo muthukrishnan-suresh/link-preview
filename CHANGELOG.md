@@ -1,3 +1,3 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.1] - 21/7/2020
 
-* TODO: Describe initial release.
+* Load Page info from OEmbed provider

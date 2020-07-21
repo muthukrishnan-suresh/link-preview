@@ -3,13 +3,11 @@ import 'package:link_preview/link_preview.dart';
 var links = [
   "https://www.circuitlab.com/circuit/pz43c8wwj2de/potentiometer-inquiry/",
   "https://coub.com/view/2gkzwz",
-  "https://www.facebook.com/100034183263437/videos/302917017524405/",
   "https://www.iheart.com/podcast/1119-red-table-talk-63922369/episode/motherhood-68561795/?embed=true",
   "https://youtu.be/xaFPt4qwZOI"
 ];
 
 void main(List<String> arguments) async {
-
   // Normal sample
   fetchPageInfoDirectly();
 
@@ -29,13 +27,14 @@ void warmUpAndFetchPageInfo() async {
 
   for (String url in links) {
     var data = await LinkPreview.getPageInfo(url);
-    print(data);
+    print(data["thumbnail_url"]);
+    print(data["provider_url"]);
   }
 }
 
 void fetchPageInfoDirectly() async {
   for (String url in links) {
     var data = await LinkPreview.getPageInfo(url);
-    print(data);
+    print(data["provider_name"]);
   }
 }

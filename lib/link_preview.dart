@@ -61,24 +61,28 @@ class LinkPreview {
   }
 
   static Future<dynamic> getPageInfo(String url) async {
-    Map<String, String> schemeMap = await _cacheOEmbedSchemeMap();
+    try {
+      Map<String, String> schemeMap = await _cacheOEmbedSchemeMap();
 
-    String oembedUrl;
-    schemeMap.forEach((key, value) {
-      RegExp exp = new RegExp(key);
+      String oembedUrl;
+      schemeMap.forEach((key, value) {
+        RegExp exp = new RegExp(key);
 
-      Iterable<Match> matches = exp.allMatches(url);
-      if (matches.length > 0) {
-        oembedUrl = "$value?format=json&url=$url";
+        Iterable<Match> matches = exp.allMatches(url);
+        if (matches.length > 0) {
+          oembedUrl = "$value?format=json&url=$url";
+        }
+      });
+
+      if (oembedUrl == null) {
+        print("Match not found for $url");
+        return null;
       }
-    });
 
-    if (oembedUrl == null) {
-      print("Match not found for $url");
-      return null;
+      Response response = await http.get(oembedUrl);
+      return jsonDecode(response.body);
+    } catch (e) {
+      print(e);
     }
-
-    Response response = await http.get(oembedUrl);
-    return jsonDecode(response.body);
   }
 }
