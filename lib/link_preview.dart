@@ -56,10 +56,18 @@ class LinkPreview {
     return _schemeMap;
   }
 
+  /// Apps can warm up link_preview on app launch using this API.
+  /// Warm up API will cache data needed to extract page info.
+  /// Warm up is an optional step. Warming up will help reduce 1-2 seconds on first page load.
   static Future<void> warmUp() async {
     await _cacheOEmbedSchemeMap();
   }
 
+  /// This API return page information if the provided url.
+  /// Page information will be in OEmbed response structure.
+  /// Ref. https://oembed.com/#section2
+  ///
+  /// Returns null if there is error in loading page information
   static Future<dynamic> getPageInfo(String url) async {
     try {
       Map<String, String> schemeMap = await _cacheOEmbedSchemeMap();
